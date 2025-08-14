@@ -3,16 +3,24 @@ import 'dart:io';
 class Graph {
   final int n;
   final List<Set<int>> adj;
+  List<List<int>> edges = [];
   Graph(this.n) : adj = List.generate(n, (_) => <int>{});
 
   void addEdge(int u, int v) {
     adj[u].add(v);
     adj[v].add(u);
+    edges.add(u < v ? [u, v] : [v, u]);
   }
 
   void show() {
     for (int i = 0; i < n; i++) {
       print('$i -> ${adj[i].join(", ")}');
+    }
+  }
+
+  void showEdges() {
+    for (int i = 0; i < edges.length; i++) {
+      print("${edges[i][0]}---${edges[i][1]}");
     }
   }
 
