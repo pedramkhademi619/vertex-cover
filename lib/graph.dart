@@ -17,8 +17,7 @@ class Graph {
   }
 
   Future<Graph> readGraphFromInputFile() async {
-    const String filePath =
-        r"C:\Users\pedra\Desktop\minimum vertex cover\lib\input.txt";
+    const String filePath = r"io\input.txt";
     File file = File(filePath);
 
     var contents = await file.readAsLines();
@@ -33,5 +32,17 @@ class Graph {
     }
     graph.show();
     return graph;
+  }
+
+  bool saveCoverToFile(Set<int> cover) {
+    try {
+      final file = File('io/output.txt');
+      // Write each vertex in a new line (overwrite if file already exists)
+      file.writeAsStringSync(cover.map((v) => v.toString()).join('\n'));
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
   }
 }

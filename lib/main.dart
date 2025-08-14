@@ -5,8 +5,8 @@ import 'vertex_cover_solver.dart';
 
 void main() async {
   Stopwatch stopwatch = Stopwatch()..start();
-  // Graph graph = Graph(0);
-  // graph = await graph.readGraphFromInputFile();
+  Graph graph = Graph(0);
+  graph = await graph.readGraphFromInputFile();
   // Graph graph = Graph(20);
 
   // graph.addEdge(0, 3);
@@ -32,7 +32,7 @@ void main() async {
   // graph.addEdge(17, 7);
   // graph.addEdge(18, 8);
   // graph.addEdge(19, 9);
-  Graph graph = generateRandomGraph(20, 150, 0);
+  // Graph graph = generateRandomGraph(20, 150, 0);
 
   graph.show();
 
@@ -48,6 +48,7 @@ void main() async {
   } else {
     print('No vertex cover found.');
   }
+  graph.saveCoverToFile(cover!);
   print('Execution time: ${stopwatch.elapsedMilliseconds} ms');
 }
 
