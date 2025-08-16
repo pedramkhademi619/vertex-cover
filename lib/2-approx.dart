@@ -1,7 +1,7 @@
-import 'lib/generate_random_graph.dart';
-import 'lib/graph.dart';
+import 'model/graph.dart' as Graph;
+import 'model/generate_random_graph.dart';
 
-Set<int> twoApprox(Graph graph) {
+Set<int> twoApprox(Graph.Graph graph) {
   Set<int> C = {};
   List<List<int>> edges = List.from(graph.edges);
 
@@ -22,7 +22,7 @@ Set<int> twoApprox(Graph graph) {
 main() {
   Stopwatch stopwatch = Stopwatch()..start();
 
-  Graph graph = generateRandomGraph(20, 50, 0);
+  Graph.Graph graph = generateRandomGraph(20, 50, 0);
   graph.show();
   Set<int> C = twoApprox(graph);
   print('2-approximation Vertex Cover size: ${C.length}');

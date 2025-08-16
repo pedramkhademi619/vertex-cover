@@ -1,5 +1,7 @@
-import 'generate_random_graph.dart';
-import 'graph.dart';
+import 'dart:io';
+
+import 'model/graph.dart';
+import 'model/generate_random_graph.dart';
 
 // Defines the vertex cover solver class
 class VertexCoverSolver {
@@ -138,7 +140,7 @@ void main() async {
   // graph.addEdge(17, 7);
   // graph.addEdge(18, 8);
   // graph.addEdge(19, 9);
-  Graph graph = generateRandomGraph(20, 50, 0);
+  Graph graph = generateRandomGraph(65, 150, 0);
 
   graph.show();
   VertexCoverSolver solver = VertexCoverSolver(graph);
@@ -153,6 +155,8 @@ void main() async {
   } else {
     print('No vertex cover found.');
   }
+  print(Directory.current.path);
+
   graph.saveCoverToFile(cover!);
   print('Execution time: ${stopwatch.elapsedMilliseconds} ms');
 }
