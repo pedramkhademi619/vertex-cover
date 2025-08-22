@@ -44,6 +44,27 @@ class LocalSearchMVC {
     }
   }
 
+  // incremental update بعد از flip یک vertex
+  void _updateUncoveredAfterFlip(int v) {
+    if (cover.contains(v)) {
+      // v اضافه شده -> ممکنه بعضی یال‌ها از uncovered حذف بشن
+      for (final u in graph.adj[v]) {
+        final e = _ek(u, v);
+        if (uncovered.contains(e) && (cover.contains(u) || cover.contains(v))) {
+          uncovered.remove(e);
+        }
+      }
+    } else {
+      // v حذف شده -> ممکنه بعضی یال‌ها به uncovered اضافه بشن
+      for (final u in graph.adj[v]) {
+        final e = _ek(u, v);
+        if (!cover.contains(u) && !cover.contains(v)) {
+          uncovered.add(e);
+        }
+      }
+    }
+  }
+
   // initial cover: greedy by edges (pair-add)
   void _buildInitialCover() {
     cover.clear();
@@ -154,7 +175,8 @@ class LocalSearchMVC {
     }
     confChange[v] = false;
     for (final u in graph.adj[v]) confChange[u] = true;
-    _recomputeUncovered();
+
+    _updateUncoveredAfterFlip(v); // incremental update
   }
 
   Set<int> solve({int maxSteps = 300000, Duration? timeLimit}) {
@@ -207,19 +229,25 @@ void saveCoverToFile(Set<int> cover, {String path = 'output.txt'}) {
   file.writeAsStringSync(cover.map((v) => v.toString()).join('\n'));
 }
 
-void main() {
+void main() async{
   Stopwatch stopwatch = Stopwatch()..start();
-  final graph = generateRandomGraph(650, 1500, 0);
+  // final graph = generateRandomGraph(650, 1500, 0);
+  Graph graph = Graph(0);
+  graph = await graph.readGraphFromInputFile();
 
   print("Graph generated:");
   graph.show();
 
   // الگوریتم Local Search
-  final solver = LocalSearchMVC(graph, seed: 42);
+  final solver = LocalSearchMVC(graph, seed: 0);
   final cover = solver.solve(maxSteps: 10000);
 
   print("\nFound Vertex Cover (size = ${cover.length}):");
-  print(cover);
+  var sortedcover = List.from(cover);
+  sortedcover.sort((a, b) {
+    return a.compareTo(b);
+  });
+  print(sortedcover);
 
   // ذخیره خروجی در فایل
   // saveCoverToFile(cover, path: 'output.txt');
