@@ -209,7 +209,7 @@ void saveCoverToFile(Set<int> cover, {String path = 'output.txt'}) {
 
 void main() {
   Stopwatch stopwatch = Stopwatch()..start();
-  final graph = generateRandomGraph(65, 150, 0);
+  final graph = generateRandomGraph(650, 1500, 0);
 
   print("Graph generated:");
   graph.show();
