@@ -1,4 +1,4 @@
-# Vertex Cover Algorithms in Dart
+[# Vertex Cover Algorithms in Dart
 
 This repository contains multiple implementations of the **Vertex Cover** problem, including approximation, exact, and metaheuristic algorithms.  
 It is intended as a learning resource and a practical toolkit for experimenting with small and large graphs.
@@ -379,3 +379,4 @@ If you want, I can also generate:
 ✅ Benchmarks chart
 ✅ Example input/output files
 ✅ Code cleanup + refactor
+](https://github.com/pedramkhademi619/vertex-cover)
